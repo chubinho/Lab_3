@@ -27,4 +27,7 @@ class Stack:
         raise IndexError("Peek from empty stack")
 
     def min(self) -> int:
-        return self.stack_min[-1]
+        if len(self.stack_min) > 0:
+            return self.stack_min[-1]
+        else:
+            raise IndexError("Min from empty stack")

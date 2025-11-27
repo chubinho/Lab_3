@@ -1,4 +1,9 @@
 def bubble_sort(a: list) -> list:
+    """Уставнавливаем флаг, который указывает, что
+    перестановка была за проход,
+    после этого проходимся по элементам и сравниваем два
+    соседних элемента
+    """
     sp = a[:]
     flag = True
     while flag:
@@ -11,6 +16,13 @@ def bubble_sort(a: list) -> list:
 
 
 def quick_sort(a: list) -> list:
+    """
+    Выбираем последний элемент, после чего
+    создаем 3 списка: элементы меньшие нашего элемента,
+    равные ему, и большие его. После чего
+    рекурсивно вызываем быструю сортировку уже
+    для элементов, меньнших и больших нашего числа
+    """
     sp = a[:]
     if len(sp) <= 1:
         return sp
@@ -22,6 +34,13 @@ def quick_sort(a: list) -> list:
 
 
 def counting_sort(a: list) -> list:
+    """Создаем массив состоящий из нулей, после чего
+    добавляем в него по индексу
+    (индекс это текущее значение - минимальное число),
+    после его проходимся по этом списку и пока текущее
+    значение не ноль, то добавляем текущий индекс +
+    минимальное значение в список результата
+    """
     sp = a[:]
     max_sp = max(sp)
     min_sp = min(sp)
@@ -37,56 +56,52 @@ def counting_sort(a: list) -> list:
 
 
 def radix_sort(a: list[int], base: int = 10) -> list[int]:
+    """
+    Берем максимальный элемент списка, после чего
+    запускаем цикл пока максимальное число деленное на заданное значение
+    больше 0, то сортируем по последнему числу и затем сортируем по самому
+    левому числу массива
+    """
     sp = a[:]
     if not sp:
         return sp
-
     max_arr = max(sp)
     exp = 1
     while max_arr // exp > 0:
         buckets: list[list[int]] = [[] for _ in range(base)]
-
         for num in sp:
             index = (num // exp) % base
             buckets[index].append(num)
         sp = [num for bucket in buckets for num in bucket]
-
         exp *= base
 
     return sp
 
 
 def bucket_sort(a: list[float], buckets: int | None = None) -> list[float]:
-    if len(a) <= 1:
+    """
+    Создаем корзины, в которые потом добавляем занчения по
+    логике нахождени индекса(это целая часть
+    от умножения текущего знаения на количество корзин),
+    после этого каждая корзина сортируется с помощью
+    quick_sort и дополняет список вывода.
+    """
+    if len(a) < 2:
         return a[:]
-
     arr = a[:]
-    n = len(arr)
-
-    if buckets is None:
-        buckets = n
-
-    else:
-        bucket_count = buckets
-
+    length = len(arr)
+    bucket_count = buckets if buckets is not None else length
     if bucket_count < 1:
         bucket_count = 1
 
-    min_val = min(arr)
-    max_val = max(arr)
-
-    if min_val == max_val:
-        return arr
-
     buckets_list: list[list[float]] = [[] for _ in range(bucket_count)]
-
-    delta = max_val - min_val
     for x in arr:
-        index = int((x - min_val) * bucket_count / delta)
-        if index == bucket_count:
-            index -= 1
+        if not (0 <= x < 1):
+            raise ValueError("bucket_sort expects all values in [0, 1)")
+        index = int(x * bucket_count)
+        if index >= bucket_count:
+            index = bucket_count - 1
         buckets_list[index].append(x)
-
     result = []
     for bucket in buckets_list:
         if len(bucket) > 1:
@@ -98,6 +113,11 @@ def bucket_sort(a: list[float], buckets: int | None = None) -> list[float]:
 
 
 def heapify(sp, n, i):
+    """
+    Всопомогательная функция для heap_sort,
+    которая выявляет максимальный элемент из трех
+    и выводит его наверх двоичного поддерева.
+    """
     largest = i
     left = 2 * i + 1
     right = 2 * i + 2
@@ -112,6 +132,12 @@ def heapify(sp, n, i):
 
 
 def heap_sort(a: list[int]) -> list[int]:
+    """
+    Идем с середины влево по списку, тк именно эти элементы имеют
+    дочерние элементы последнего уровня снизу,
+    поэтому с помощью них мы поднимаемся всё выше
+    и выше, формируя max-heap
+    """
     sp = a[:]
     n = len(sp)
 
