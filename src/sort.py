@@ -41,6 +41,8 @@ def counting_sort(a: list) -> list:
     значение не ноль, то добавляем текущий индекс +
     минимальное значение в список результата
     """
+    if len(a) < 1:
+        return []
     sp = a[:]
     max_sp = max(sp)
     min_sp = min(sp)
@@ -48,10 +50,8 @@ def counting_sort(a: list) -> list:
     for i in range(len(sp)):
         count[sp[i] - min_sp] += 1
     sp = []
-    for j in range(len(count)):
-        while count[j] > 0:
-            sp.append(j - min_sp)
-            count[j] -= 1
+    for i in range(len(count)):
+        sp.extend([i + min_sp] * count[i])
     return sp
 
 
