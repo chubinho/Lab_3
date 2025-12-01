@@ -2,12 +2,13 @@ def factorial_recursive(n: int) -> int:
     """
     Алгоритм рекурсивного вычисления факториала
     """
+    if not isinstance(n,int) or n < 0:
+        raise ValueError("The number must be natural")
     if n == 1 or n == 0:
         return 1
-    elif n > 1:
-        return factorial_recursive(n - 1) * n
     else:
-        raise ValueError()
+        return factorial_recursive(n - 1) * n
+
 
 
 def factorial(n: int) -> int:
@@ -15,8 +16,8 @@ def factorial(n: int) -> int:
     Создаем список, внутри которого получаем
     значения прошлых элементов
     """
-    if n < 0:
-        raise ValueError()
+    if not isinstance(n,int) or n < 0:
+        raise ValueError("The number must be natural")
 
     sp = [0] * (n + 1)
     sp[0] = 1

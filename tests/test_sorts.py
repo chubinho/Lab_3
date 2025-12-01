@@ -17,7 +17,7 @@ from src.sort import (
     radix_sort,
     heap_sort
 ])
-class TestInegerSort:
+class TestIntegerSort:
     def test_empty_list(self, sort_function):
         assert sort_function([]) == []
 
