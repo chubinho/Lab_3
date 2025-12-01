@@ -1,9 +1,13 @@
 class Stack:
     def __init__(self):
+        """
+        Реализация структуры стэк, в который элемент кладутся
+        "наверх" и берутся из "верха"
+        """
         self.sp = []
         self.stack_min = []
 
-    def push(self,x: int) -> None:
+    def push(self, x: int) -> None:
         self.sp.append(x)
         if len(self.stack_min) == 0 or x <= self.stack_min[-1]:
             self.stack_min.append(x)

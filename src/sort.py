@@ -8,7 +8,7 @@ def bubble_sort(a: list[int]) -> list[int]:
         raise TypeError("Input should be a list")
     if len(a) < 2:
         return a
-    if not all(isinstance(x,int) for x in a):
+    if not all(isinstance(x, int) for x in a):
         raise TypeError("Each element must be an integer")
     if any(x < 0 for x in a):
         raise ValueError("Each element must be more than 0")
@@ -50,6 +50,7 @@ def quick_sort_int(a: list[int]) -> list[int]:
 
     return quick_sort_int(left_pivot) + middle_pivot + quick_sort_int(right_pivot)
 
+
 def quick_sort_float(a: list[float]) -> list[float]:
     """
     Выбираем последний элемент, после чего
@@ -75,6 +76,7 @@ def quick_sort_float(a: list[float]) -> list[float]:
     right_pivot = [x for x in sp if x > pivot]
 
     return quick_sort_float(left_pivot) + middle_pivot + quick_sort_float(right_pivot)
+
 
 def counting_sort(a: list[int]) -> list[int]:
     """Создаем массив состоящий из нулей, после чего
@@ -144,8 +146,8 @@ def bucket_sort(a: list[float], buckets: int | None = None) -> list[float]:
     quick_sort и дополняет список вывода.
     """
     if not isinstance(a, list):
-        raise TypeError("Input must be a list")
-    if not all(isinstance(x, (int, float)) for x in a):
+        raise TypeError("Input should be a list")
+    if not all(isinstance(x, float) for x in a):
         raise TypeError("Each element must be a float")
     if any(not (0 <= x < 1) for x in a):
         raise ValueError("The value in bucket_sort should be in [0, 1)")
@@ -159,8 +161,6 @@ def bucket_sort(a: list[float], buckets: int | None = None) -> list[float]:
 
     buckets_list: list[list[float]] = [[] for _ in range(bucket_count)]
     for x in arr:
-        if not (0 <= x < 1):
-            raise ValueError("bucket_sort expects all values in [0, 1)")
         index = int(x * bucket_count)
         if index >= bucket_count:
             index = bucket_count - 1
@@ -201,9 +201,9 @@ def heap_sort(a: list[int]) -> list[int]:
     поэтому с помощью них мы поднимаемся всё выше
     и выше, формируя max-heap
     """
-    if not isinstance(a,list):
-        raise TypeError("Input must be a list")
-    if not all(isinstance(x,int) for x in a):
+    if not isinstance(a, list):
+        raise TypeError("Input should be a list")
+    if not all(isinstance(x, int) for x in a):
         raise TypeError("Each element must be an int")
     if any(x < 0 for x in a):
         raise ValueError("Each element must be more than 0")
