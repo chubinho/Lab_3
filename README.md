@@ -28,3 +28,6 @@ Lab_3
 ## Запуск тестов
 1. Предустановка (```pip install pytest```)
 2. `pytest`/ `pytest -v` - для более подробного вывода
+
+## Вывод отсчета с benchmark
+`python src/main.py`
